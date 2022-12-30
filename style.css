@@ -1,0 +1,27 @@
+div[data-testid='metric-container']{
+                border: 1px solid;
+                padding: 5% 5% 5% 10%;
+                border-radius: 5px;
+                "box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;"
+            }
+div.css-1yy6isu.e16nr0p34{
+                font-size: 14px;
+                color: rgb(250, 250, 250);
+                height: auto;
+                min-height: 1.5rem;
+                vertical-align: middle;
+                flex-direction: row;
+                -webkit-box-align: center;
+                align-items: center;
+                margin-bottom: 0px;
+                display: flex;
+                visibility: visible;
+            }
+div.css-50ug3q.e16fv1kl3{
+    vertical-align: baseline;
+    font-weight: 800;
+    font-size: 1.5rem;
+    font-variant-numeric: proportional-nums;
+    padding-top: 0.25rem;
+    color: #ffffff;
+}
