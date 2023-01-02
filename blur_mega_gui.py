@@ -29,6 +29,6 @@ app.add_app("Overview", overview_page)
 app.add_app("Trading Activity", trading_page)
 app.add_app("Trader Analysis", traders_page)
 app.add_app("NFT Analysis", nfts_page)
-app.add_app("NFT Marketplace Comparison", comparison_page)
+app.add_app("Marketplace Comparison", comparison_page)
 
 app.run()
