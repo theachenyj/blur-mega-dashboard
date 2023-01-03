@@ -79,7 +79,11 @@ def trading_page():
     with daily_sales_count:
         daily_sales_count_chart = alt.Chart(df_daily_sales_count).mark_bar(color='#E4831E').encode(
             x=alt.X('Date:T', axis=alt.Axis(title=None)),
-            y='Sales Count:Q'
+            y='Sales Count:Q',
+            tooltip=[
+                alt.Tooltip('Date:T'),
+                alt.Tooltip('Sales Count:Q', format=',')
+            ]
         ).properties(title='Daily Sales Count')
         st.altair_chart(daily_sales_count_chart, use_container_width=True)
         st.markdown(" ")
@@ -88,8 +92,12 @@ def trading_page():
     with daily_sales_volume:
         daily_sales_volume_chart = alt.Chart(df_daily_sales_volume).mark_bar(color='#E4831E').encode(
             x=alt.X('Date:T', axis=alt.Axis(title=None)),
-            y='Sales Volume:Q'
-        ).properties(title='Daily Sales Volume')
+            y='Sales Volume:Q',
+            tooltip=[
+                alt.Tooltip('Date:T'),
+                alt.Tooltip('Sales Volume:Q', format='$,')
+            ]
+        ).properties(title='Daily Sales Volume in USD')
         st.altair_chart(daily_sales_volume_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -161,7 +169,11 @@ def trading_page():
     with daily_sales_collection:
         daily_sales_collection_chart = alt.Chart(df_daily_sales_collection).mark_bar(color='#E4831E').encode(
             x=alt.X('Date:T', axis=alt.Axis(title=None)),
-            y='Sales NFT Collections:Q'
+            y='Sales NFT Collections:Q',
+            tooltip=[
+                alt.Tooltip('Date:T'),
+                alt.Tooltip('Sales NFT Collections:Q', format=',')
+            ]
         ).properties(title='Daily Sales NFT Collections')
         st.altair_chart(daily_sales_collection_chart, use_container_width=True)
         st.markdown(" ")
@@ -170,7 +182,11 @@ def trading_page():
     with daily_sales_nft:
         daily_sales_nft_chart = alt.Chart(df_daily_sales_nft).mark_bar(color='#E4831E').encode(
             x=alt.X('Date:T', axis=alt.Axis(title=None)),
-            y='Sales NFTs:Q'
+            y='Sales NFTs:Q',
+            tooltip=[
+                alt.Tooltip('Date:T'),
+                alt.Tooltip('Sales NFTs:Q', format=',')
+            ]
         ).properties(title='Daily Sales NFTs')
         st.altair_chart(daily_sales_nft_chart, use_container_width=True)
         st.markdown(" ")

@@ -27,7 +27,11 @@ def traders_page():
                 alt.datum.Change > 0,
                 alt.value("green"),  # The positive color
                 alt.value("red")  # The negative color
-            )
+            ),
+            tooltip=[
+                alt.Tooltip('Date:T'),
+                alt.Tooltip('Change:Q', format='.2%')
+            ]
         ).properties(title='The Percentage(%) Increase/Decrease of Traders')
         st.altair_chart(trader_dod_chart, use_container_width=True)
         st.markdown(" ")

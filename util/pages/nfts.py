@@ -34,7 +34,7 @@ def nfts_page():
                 alt.Tooltip('NFT Collection:N'),
                 alt.Tooltip('Sales Count:Q', format=',')
             ]
-        ).properties(title='Top NFT Collection Based on Sales Count')
+        ).properties(title='Top NFT Collection Based on Sales Count since 2022-10-19')
         st.altair_chart(top_nft_count_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -46,7 +46,7 @@ def nfts_page():
                 alt.Tooltip('NFT Collection:N'),
                 alt.Tooltip('Sales Volume:Q', format='$,')
             ]
-        ).properties(title='Top NFT Collection Based on Sales Volume')
+        ).properties(title='Top NFT Collection Based on Sales Volume since 2022-10-19')
         st.altair_chart(top_nft_volume_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -86,6 +86,6 @@ def nfts_page():
                 alt.Tooltip('NFT Collection:N'),
                 alt.Tooltip('Sales Volume:Q', format='$,')
             ]
-        ).properties(title='24HTop NFT Collection Based on Sales Volume')
+        ).properties(title='24H Top NFT Collection Based on Sales Volume')
         st.altair_chart(top_nft_volume_24h_chart, use_container_width=True)
         st.markdown(" ")

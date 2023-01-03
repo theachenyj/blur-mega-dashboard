@@ -104,7 +104,7 @@ def overview_page():
             y='Sales Volume:Q',
             tooltip=[
                 alt.Tooltip('Date:T'),
-                alt.Tooltip('Sales Volume:Q', format=',')
+                alt.Tooltip('Sales Volume:Q', format='$,')
             ]
         )
         sales_trend_volume_line = sales_trend_volume_base.mark_line(color='grey').encode(
@@ -117,7 +117,7 @@ def overview_page():
         sales_trend_volume_layer = alt.layer(
             sales_trend_volume_area,
             sales_trend_volume_line
-        ).resolve_scale(y='independent').properties(title='Daily Sales Volume v.s. Ether Price')
+        ).resolve_scale(y='independent').properties(title='Daily Sales Volume in USD v.s. Ether Price')
 
         st.altair_chart(sales_trend_volume_layer, use_container_width=True)
         st.markdown(" ")
