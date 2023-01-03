@@ -13,6 +13,12 @@ def overview_page():
         "It's for pro traders and benefits them with zero cost and faster trading speed."
     )
     st.markdown("---")
+    st.markdown(
+        "These kinds of charts show the overall performance of Blur's KPIs, "
+        "including sales count, sales volume, traders and sales NFT collections. "
+        "You can have a more deeper dive for a more specific view by selecting different pages in the sidebar. "
+        "We cover **Trading Analysis**, **Trader Analysis**, **NFT Analysis** and **Marketplace Comparison**. "
+    )
 
     # Metrics
 

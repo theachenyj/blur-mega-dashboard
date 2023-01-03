@@ -19,3 +19,4 @@ url_top_nft_volume_24h = 'https://node-api.flipsidecrypto.com/api/v2/queries/f44
 url_market_comparison_total = 'https://node-api.flipsidecrypto.com/api/v2/queries/38536f1e-cc44-4506-a826-36c880072316/data/latest'
 url_market_comparison_daily = 'https://node-api.flipsidecrypto.com/api/v2/queries/1955bcca-614b-45ad-af1b-5d2063f151c4/data/latest'
 url_market_share = 'https://node-api.flipsidecrypto.com/api/v2/queries/14e9e9c9-3721-4cfe-9305-23c4f90bd30e/data/latest'
+url_last_updated = 'https://node-api.flipsidecrypto.com/api/v2/queries/2ff4df46-4c93-4108-8cf7-e73f84c2c3d7/data/latest'

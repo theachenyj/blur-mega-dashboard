@@ -7,32 +7,29 @@ import util.constants.urls as urls
 import altair as alt
 def comparison_page():
     st.markdown("## Marketplace Comparison ")
-    st.markdown(
-        "Text..."
-    )
     st.markdown("---")
 
     # Sales Count
-    save_dict_sales_count_total = {"Platform": [], "Sales Count": []}
+    save_dict_sales_count_total = {"Platform": [], "% of Total Sales Count": []}
     api_data_sales_count_total = requests.get(url=urls.url_market_comparison_total, headers={})
     for item in json.loads(api_data_sales_count_total.text):
         save_dict_sales_count_total["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_sales_count_total["Sales Count"].append(item["TRANSACTION_COUNTS"])
-    df_sales_count_total = pd.DataFrame(data=save_dict_sales_count_total, columns=['Platform', 'Sales Count'])
+        save_dict_sales_count_total["% of Total Sales Count"].append(item["TRASNSACTION_COUNTS_PCT"])
+    df_sales_count_total = pd.DataFrame(data=save_dict_sales_count_total, columns=['Platform', '% of Total Sales Count'])
 
-    save_dict_sales_count_daily = {"Date": [], "Platform": [], "Sales Count": []}
+    save_dict_sales_count_daily = {"Date": [], "Platform": [], "% of Sales Count": []}
     api_data_sales_count_daily = requests.get(url=urls.url_market_comparison_daily, headers={})
     for item in json.loads(api_data_sales_count_daily.text):
         save_dict_sales_count_daily["Date"].append(item["BLOCK_DATE"])
         save_dict_sales_count_daily["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_sales_count_daily["Sales Count"].append(item["TRANSACTION_COUNTS"])
-    df_sales_count_daily = pd.DataFrame(data=save_dict_sales_count_daily, columns=['Date', 'Platform', 'Sales Count'])
+        save_dict_sales_count_daily["% of Sales Count"].append(item["TRANSACTION_COUNTS_PCT"])
+    df_sales_count_daily = pd.DataFrame(data=save_dict_sales_count_daily, columns=['Date', 'Platform', '% of Sales Count'])
 
     sales_count_total, sales_count_daily = st.columns(2)
     # Total Sales Count
     with sales_count_total:
         sales_count_total_chart = alt.Chart(df_sales_count_total).mark_arc().encode(
-            theta=alt.Theta(field="Sales Count", type="quantitative"),
+            theta=alt.Theta(field="% of Total Sales Count", type="quantitative"),
             color=alt.Color(
                 field="Platform",
                 type="nominal",
@@ -43,9 +40,9 @@ def comparison_page():
             ),
             tooltip=[
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Sales Count:Q', format=',')
+                alt.Tooltip('% of Total Sales Count:Q', format='.2%')
             ]
-        ).properties(title='Total Sales Count by Marketpalce since 2022-10-19')
+        ).properties(title='% of Total Sales Count since 2022-10-19')
         st.altair_chart(sales_count_total_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -53,7 +50,7 @@ def comparison_page():
     with sales_count_daily:
         sales_count_daily_chart = alt.Chart(df_sales_count_daily).mark_area().encode(
             x=alt.X("Date:T", axis=alt.Axis(title=None)),
-            y=alt.Y("Sales Count:Q", stack="normalize"),
+            y=alt.Y("% of Sales Count:Q", stack="normalize"),
             color=alt.Color('Platform:N', scale=alt.Scale(
                 domain=['opensea', 'x2y2', 'blur', 'looksrare', 'sudoswap', 'nftx', 'rarible', 'larva labs'],
                 range=['#4C81DF', '#4E31C2', '#E4831E', '#74CD61', '#B7B8FD', '#D62C7B', '#F4D834', '#DB05AF']
@@ -61,32 +58,32 @@ def comparison_page():
             tooltip=[
                 alt.Tooltip('Date:T'),
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Sales Count:Q', format=',')
+                alt.Tooltip('% of Sales Count:Q', format='.2%')
             ]
-        ).properties(title='Daily Sales Count by Marketpalce')
+        ).properties(title='% of Daily Sales Count')
         st.altair_chart(sales_count_daily_chart, use_container_width=True)
         st.markdown(" ")
 
     # Sales Volume
     st.markdown(" ")
-    save_dict_sales_volume_total = {"Platform": [], "Sales Volume": []}
+    save_dict_sales_volume_total = {"Platform": [], "% of Total Sales Volume": []}
     for item in json.loads(api_data_sales_count_total.text):
         save_dict_sales_volume_total["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_sales_volume_total["Sales Volume"].append(item["TRANSACTION_VOLUMES"])
-    df_sales_volume_total = pd.DataFrame(data=save_dict_sales_volume_total, columns=['Platform', 'Sales Volume'])
+        save_dict_sales_volume_total["% of Total Sales Volume"].append(item["TRANSACTION_VOLUMES_PCT"])
+    df_sales_volume_total = pd.DataFrame(data=save_dict_sales_volume_total, columns=['Platform', '% of Total Sales Volume'])
 
-    save_dict_sales_volume_daily = {"Date": [], "Platform": [], "Sales Volume": []}
+    save_dict_sales_volume_daily = {"Date": [], "Platform": [], "% of Sales Volume": []}
     for item in json.loads(api_data_sales_count_daily.text):
         save_dict_sales_volume_daily["Date"].append(item["BLOCK_DATE"])
         save_dict_sales_volume_daily["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_sales_volume_daily["Sales Volume"].append(item["TRANSACTION_VOLUMES"])
-    df_sales_volume_daily = pd.DataFrame(data=save_dict_sales_volume_daily, columns=['Date', 'Platform', 'Sales Volume'])
+        save_dict_sales_volume_daily["% of Sales Volume"].append(item["TRANSACTION_VOLUMES_PCT"])
+    df_sales_volume_daily = pd.DataFrame(data=save_dict_sales_volume_daily, columns=['Date', 'Platform', '% of Sales Volume'])
 
     sales_volume_total, sales_volume_daily = st.columns(2)
     # Total Sales Volume
     with sales_volume_total:
         sales_volume_total_chart = alt.Chart(df_sales_volume_total).mark_arc().encode(
-            theta=alt.Theta(field="Sales Volume", type="quantitative"),
+            theta=alt.Theta(field="% of Total Sales Volume", type="quantitative"),
             color=alt.Color(
                 field="Platform",
                 type="nominal",
@@ -97,9 +94,9 @@ def comparison_page():
             ),
             tooltip=[
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Sales Volume:Q', format=',')
+                alt.Tooltip('% of Total Sales Volume:Q', format='.2%')
             ]
-        ).properties(title='Total Sales Volume by Marketpalce since 2022-10-19')
+        ).properties(title='% of Total Sales Volume since 2022-10-19')
         st.altair_chart(sales_volume_total_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -107,7 +104,7 @@ def comparison_page():
     with sales_volume_daily:
         sales_volume_daily_chart = alt.Chart(df_sales_volume_daily).mark_area().encode(
             x=alt.X("Date:T", axis=alt.Axis(title=None)),
-            y=alt.Y("Sales Volume:Q", stack="normalize"),
+            y=alt.Y("% of Sales Volume:Q", stack="normalize"),
             color=alt.Color('Platform:N', scale=alt.Scale(
                 domain=['opensea', 'x2y2', 'blur', 'looksrare', 'sudoswap', 'nftx', 'rarible', 'larva labs'],
                 range=['#4C81DF', '#4E31C2', '#E4831E', '#74CD61', '#B7B8FD', '#D62C7B', '#F4D834', '#DB05AF']
@@ -115,34 +112,34 @@ def comparison_page():
             tooltip=[
                 alt.Tooltip('Date:T'),
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Sales Volume:Q', format=',')
+                alt.Tooltip('% of Sales Volume:Q', format='.2%')
             ]
-        ).properties(title='Daily Sales Volume by Marketpalce')
+        ).properties(title='% of Daily Sales Volume')
         st.altair_chart(sales_volume_daily_chart, use_container_width=True)
         st.markdown(" ")
 
 
     # Unique Traders
     st.markdown(" ")
-    save_dict_trader_total = {"Platform": [], "Traders": []}
+    save_dict_trader_total = {"Platform": [], "% of Total Traders": []}
     for item in json.loads(api_data_sales_count_total.text):
         save_dict_trader_total["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_trader_total["Traders"].append(item["TRADERS"])
-    df_trader_total = pd.DataFrame(data=save_dict_trader_total, columns=['Platform', 'Traders'])
+        save_dict_trader_total["% of Total Traders"].append(item["TRADER_PCT"])
+    df_trader_total = pd.DataFrame(data=save_dict_trader_total, columns=['Platform', '% of Total Traders'])
 
-    save_dict_trader_daily = {"Date": [], "Platform": [], "Traders": []}
+    save_dict_trader_daily = {"Date": [], "Platform": [], "% of Traders": []}
     for item in json.loads(api_data_sales_count_daily.text):
         save_dict_trader_daily["Date"].append(item["BLOCK_DATE"])
         save_dict_trader_daily["Platform"].append(item["PLATFORM_NAME"])
-        save_dict_trader_daily["Traders"].append(item["TRADERS"])
+        save_dict_trader_daily["% of Traders"].append(item["TRADERS_PCT"])
     df_trader_daily = pd.DataFrame(data=save_dict_trader_daily,
-                                         columns=['Date', 'Platform', 'Traders'])
+                                         columns=['Date', 'Platform', '% of Traders'])
 
     trader_total, trader_daily = st.columns(2)
     # Total Traders
     with trader_total:
         trader_total_chart = alt.Chart(df_trader_total).mark_arc().encode(
-            theta=alt.Theta(field="Traders", type="quantitative"),
+            theta=alt.Theta(field="% of Total Traders", type="quantitative"),
             color=alt.Color(
                 field="Platform",
                 type="nominal",
@@ -153,9 +150,9 @@ def comparison_page():
             ),
             tooltip=[
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Traders:Q', format=',')
+                alt.Tooltip('% of Total Traders:Q', format='.2%')
             ]
-        ).properties(title='Total Traders by Marketpalce since 2022-10-19')
+        ).properties(title='% of Total Traders since 2022-10-19')
         st.altair_chart(trader_total_chart, use_container_width=True)
         st.markdown(" ")
 
@@ -163,7 +160,7 @@ def comparison_page():
     with trader_daily:
         trader_daily_chart = alt.Chart(df_trader_daily).mark_area().encode(
             x=alt.X("Date:T", axis=alt.Axis(title=None)),
-            y=alt.Y("Traders:Q", stack="normalize"),
+            y=alt.Y("% of Traders:Q", stack="normalize"),
             color=alt.Color('Platform:N', scale=alt.Scale(
                 domain=['opensea', 'x2y2', 'blur', 'looksrare', 'sudoswap', 'nftx', 'rarible', 'larva labs'],
                 range=['#4C81DF', '#4E31C2', '#E4831E', '#74CD61', '#B7B8FD', '#D62C7B', '#F4D834', '#DB05AF']
@@ -171,9 +168,9 @@ def comparison_page():
             tooltip=[
                 alt.Tooltip('Date:T'),
                 alt.Tooltip('Platform:N'),
-                alt.Tooltip('Traders:Q', format=',')
+                alt.Tooltip('% of Traders:Q', format='.2%')
             ]
-        ).properties(title='Daily Traders by Marketpalce')
+        ).properties(title='% of Daily Traders')
         st.altair_chart(trader_daily_chart, use_container_width=True)
         st.markdown(" ")
 

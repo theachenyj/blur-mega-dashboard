@@ -5,6 +5,7 @@ from util.pages.trading_page import trading_page
 from util.pages.nfts import nfts_page
 from util.pages.traders import traders_page
 from util.pages.comparison import comparison_page
+from util.pages.about import about_page
 
 class MultiApp:
     def __init__(self):
@@ -30,5 +31,6 @@ app.add_app("Trading Activity", trading_page)
 app.add_app("Trader Analysis", traders_page)
 app.add_app("NFT Analysis", nfts_page)
 app.add_app("Marketplace Comparison", comparison_page)
+app.add_app("About", about_page)
 
 app.run()
